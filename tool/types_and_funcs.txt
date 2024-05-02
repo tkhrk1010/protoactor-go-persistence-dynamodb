@@ -1,0 +1,58 @@
+type ProviderState struct {
+func NewProviderState(snapshotStore *SnapshotStore, eventStore *EventStore) *ProviderState {
+func (p *ProviderState) GetSnapshotStore() persistence.SnapshotStore {
+func (p *ProviderState) GetEventStore() persistence.EventStore {
+func (p *ProviderState) GetState() *ProviderState {
+func (p *ProviderState) Restart() {}
+func (p *ProviderState) GetSnapshotInterval() int {
+func (p *ProviderState) GetSnapshot(actorName string) (snapshot interface{}, eventIndex int, ok bool) {
+func (p *ProviderState) PersistSnapshot(actorName string, snapshotIndex int, snapshot protoreflect.ProtoMessage) {
+func (p *ProviderState) DeleteSnapshots(actorName string, inclusiveToIndex int) {
+func (p *ProviderState) GetEvents(actorName string, eventIndexStart int, eventIndexEnd int, callback func(e interface{})) {
+func (p *ProviderState) PersistEvent(actorName string, eventIndex int, event protoreflect.ProtoMessage) {
+func (p *ProviderState) DeleteEvents(actorName string, inclusiveToIndex int) {
+type TestEvent struct {
+func (x *TestEvent) Reset() {
+func (x *TestEvent) String() string {
+func (*TestEvent) ProtoMessage() {}
+func (x *TestEvent) ProtoReflect() protoreflect.Message {
+func (*TestEvent) Descriptor() ([]byte, []int) {
+func (x *TestEvent) GetData() string {
+type TestSnapshot struct {
+func (x *TestSnapshot) Reset() {
+func (x *TestSnapshot) String() string {
+func (*TestSnapshot) ProtoMessage() {}
+func (x *TestSnapshot) ProtoReflect() protoreflect.Message {
+func (*TestSnapshot) Descriptor() ([]byte, []int) {
+func (x *TestSnapshot) GetData() string {
+func file_test_event_proto_rawDescGZIP() []byte {
+func init() { file_test_event_proto_init() }
+func file_test_event_proto_init() {
+type Event struct {
+func (x *Event) Reset() {
+func (x *Event) String() string {
+func (*Event) ProtoMessage() {}
+func (x *Event) ProtoReflect() protoreflect.Message {
+func (*Event) Descriptor() ([]byte, []int) {
+func (x *Event) GetData() string {
+type Snapshot struct {
+func (x *Snapshot) Reset() {
+func (x *Snapshot) String() string {
+func (*Snapshot) ProtoMessage() {}
+func (x *Snapshot) ProtoReflect() protoreflect.Message {
+func (*Snapshot) Descriptor() ([]byte, []int) {
+func (x *Snapshot) GetData() string {
+func file_protos_proto_rawDescGZIP() []byte {
+func init() { file_protos_proto_init() }
+func file_protos_proto_init() {
+type SnapshotStore struct {
+func NewSnapshotStore(client *dynamodb.Client, table string) *SnapshotStore {
+func (s *SnapshotStore) GetSnapshot(actorName string) (snapshot interface{}, eventIndex int, ok bool) {
+func (s *SnapshotStore) PersistSnapshot(actorName string, eventIndex int, snapshot protoreflect.ProtoMessage) {
+func (s *SnapshotStore) DeleteSnapshots(actorName string, inclusiveToIndex int) {}
+type EventStore struct {
+func NewEventStore(client *dynamodb.Client, table string) *EventStore {
+func (e *EventStore) GetEvents(actorName string, eventIndexStart int, eventIndexEnd int, callback func(e interface{})) {
+func (e *EventStore) PersistEvent(actorName string, eventIndex int, event protoreflect.ProtoMessage) {
+func (e *EventStore) DeleteEvents(actorName string, inclusiveToIndex int) {}
+

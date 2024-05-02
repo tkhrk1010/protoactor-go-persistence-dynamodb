@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  awscli:
+    image: amazon/aws-cli:2.0.30 # AWS CLI v2のイメージ
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    stdin_open: true
+    tty: true
+    # コマンドは実行せずにコンテナを起動状態に保つための上書き設定
+    # これがないと、awscliコマンドが実行されて終了してしまう
+    entrypoint: ["/bin/sh", "-c"]
+    # コンテナを起動状態に保つためのコマンド
+    command: tail -f /dev/null

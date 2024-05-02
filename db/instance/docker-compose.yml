@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566" # LocalStack Gateway
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - SERVICES=dynamodb # 起動するサービス
+      - START_WEB=0 # LocalStackの管理コンソールを無効化
+      - DEFAULT_REGION=us-east-1 # デフォルトのリージョン
+      - DEBUG=1 # デバッグモードの有効化
+    volumes:
+      - localstack-go-actor-model-data:/var/lib/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock" # Dockerデーモンへのアクセス
+
+volumes:
+  localstack-go-actor-model-data:

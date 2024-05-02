@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  # official/のlocalstackを立ち上げている前提
+  # dynamodb-adminとして、UIを提供する
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin # starが1.3kくらいあったので、使ってみる
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://host.docker.internal:4566 # LocalStackのエンドポイント
