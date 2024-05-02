@@ -1,7 +1,7 @@
 # protoactor-go-persistence-dynamodb
 protoactor-go persistence(journal, snapshot, state) plugin for AWS DynamoDB
 
-In the [official protoactor-go repository, there is currently](https://github.com/asynkron/protoactor-go) no DynamoDB persistence plugin available. Therefore, this provides a way to persist data to DynamoDB in your local environment. 
+In the [official protoactor-go repository](https://github.com/asynkron/protoactor-go), there is currently no DynamoDB persistence plugin available. Therefore, this provides a way to persist data to DynamoDB in your local environment. 
 
 This is primarily intended for local hands-on experimentation and is not suitable for enterprise production use cases.
 
