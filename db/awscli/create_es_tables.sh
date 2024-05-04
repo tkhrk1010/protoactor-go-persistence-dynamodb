@@ -24,7 +24,7 @@ while getopts e: OPT; do
   esac
 done
 
-export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-west-1}
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-x}
 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-x}
 export AWS_PAGER=""
