@@ -1,4 +1,4 @@
-module github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb
+module github.com/tkhrk1010/protoactor-go-persistence-dynamodb
 
 go 1.22
 

@@ -1,18 +1,19 @@
 package persistence_test
 
 import (
-	"testing"
-	"fmt"
 	"context"
+	"fmt"
+	"testing"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
 
-	p "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence"
+	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 )
 
 func TestNewProviderState(t *testing.T) {
@@ -62,7 +63,7 @@ func TestGetSnapshot(t *testing.T) {
 	item := map[string]types.AttributeValue{
 		"actorName":  &types.AttributeValueMemberS{Value: actorName},
 		"eventIndex": &types.AttributeValueMemberN{Value: fmt.Sprintf("%d", eventIndex)},
-		"payload":   &types.AttributeValueMemberB{Value: snapshotBytes},
+		"payload":    &types.AttributeValueMemberB{Value: snapshotBytes},
 	}
 	putInput := &dynamodb.PutItemInput{
 		TableName: aws.String(tableName),

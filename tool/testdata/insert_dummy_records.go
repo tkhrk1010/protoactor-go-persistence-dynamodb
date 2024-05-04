@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	p "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence"
+	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 	"google.golang.org/protobuf/proto"
 )
 

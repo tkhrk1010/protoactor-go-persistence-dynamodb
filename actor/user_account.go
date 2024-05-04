@@ -3,10 +3,10 @@ package actor
 import (
 	"log"
 
-	"github.com/oklog/ulid/v2"
 	"github.com/asynkron/protoactor-go/actor"
 	"github.com/asynkron/protoactor-go/persistence"
-	p "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence"
+	"github.com/oklog/ulid/v2"
+	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 )
 
 // Nameというfieldを持ってしまうと、MixinのNameと競合してしまい、エラーになるので注意
@@ -18,7 +18,7 @@ type UserAccount struct {
 
 type GetEmailRequest struct{}
 
-type CreateUserRequest struct{
+type CreateUserRequest struct {
 	email string
 }
 

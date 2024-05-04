@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/stretchr/testify/assert"
-	p "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence"
+	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -99,8 +99,8 @@ func TestEventStore_GetEvents(t *testing.T) {
 	}
 	assert.Equal(t, len(expectedEvents), len(actualEvents))
 	for i, expected := range expectedEvents {
-			actual := actualEvents[i].(*p.Event)
-			assert.True(t, proto.Equal(expected, actual))
+		actual := actualEvents[i].(*p.Event)
+		assert.True(t, proto.Equal(expected, actual))
 	}
 
 	// クリーンアップ

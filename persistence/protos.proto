@@ -1,6 +1,6 @@
 syntax = "proto3";
 package persistence;
-option go_package = "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence";
+option go_package = "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence";
 
 message Event {
   string data = 1;
