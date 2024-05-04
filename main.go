@@ -19,7 +19,6 @@ import (
 )
 
 func main() {
-	// TODO: なぜかrerunしたらDynamoDBのeventIndexかなにかでerrorが出る
 	log.Printf("start")
 
 	//
