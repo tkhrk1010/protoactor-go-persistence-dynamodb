@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"time"
 
@@ -11,11 +10,10 @@ import (
 	"github.com/asynkron/protoactor-go/actor"
 	"github.com/asynkron/protoactor-go/persistence"
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	a "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/actor"
-	p "github.com/tkhrk1010/go-samples/actor-model/persistence/dynamodb/persistence"
+	a "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/actor"
+	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 )
 
 func main() {
@@ -24,7 +22,7 @@ func main() {
 	//
 	// 基本設定
 	system := actor.NewActorSystem()
-	client := initializeDynamoDBClient()
+	client := p.InitializeDynamoDBClient()
 	provider := p.NewProviderState(client)
 	props := actor.PropsFromProducer(a.NewUserAccount, actor.WithReceiverMiddleware(persistence.Using(provider)))
 
@@ -68,32 +66,6 @@ func main() {
 	deleteDynamoDBRecords(client, "journal", "userAccountActor-1")
 	deleteDynamoDBRecords(client, "snapshot", "userAccountActor-1")
 	log.Print("done")
-}
-
-func initializeDynamoDBClient() *dynamodb.Client {
-	ctx := context.TODO()
-
-	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-		if service == dynamodb.ServiceID {
-			return aws.Endpoint{
-				PartitionID:   "aws",
-				URL:           "http://localhost:4566",
-				SigningRegion: "us-east-1",
-			}, nil
-		}
-		return aws.Endpoint{}, &aws.EndpointNotFoundError{}
-	})
-
-	cfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion("us-east-1"),
-		config.WithCredentialsProvider(aws.AnonymousCredentials{}),
-		config.WithEndpointResolverWithOptions(customResolver),
-	)
-	if err != nil {
-		panic(fmt.Sprintf("unable to load SDK config, %v", err))
-	}
-
-	return dynamodb.NewFromConfig(cfg)
 }
 
 func getEmail(system *actor.ActorSystem, pid *actor.PID) {
