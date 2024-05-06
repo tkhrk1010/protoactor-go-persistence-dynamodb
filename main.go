@@ -12,6 +12,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+	"google.golang.org/protobuf/types/known/timestamppb"
+	"github.com/oklog/ulid/v2"
 	a "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/actor"
 	p "github.com/tkhrk1010/protoactor-go-persistence-dynamodb/persistence"
 )
@@ -31,10 +33,11 @@ func main() {
 	log.Printf("--- normal case ---")
 	user1 := spawnUserAccount(system, props, "1")
 	getEmail(system, user1)
-	system.Root.Send(user1, &p.Event{Data: "event1"})
-	system.Root.Send(user1, &p.Event{Data: "event2"})
-	system.Root.Send(user1, &p.Event{Data: "event3"})
-	system.Root.Send(user1, &p.Event{Data: "event4"})
+	// ちゃんとするなら、直接Eventを渡さず、別の型で渡すべきか
+	system.Root.Send(user1, &p.Event{Id: ulid.Make().String(), Type: "CreateUserAccount", Data: "event1", OccurredAt: timestamppb.Now()})
+	system.Root.Send(user1, &p.Event{Id: ulid.Make().String(), Type: "CreateUserAccount", Data: "event2", OccurredAt: timestamppb.Now()})
+	system.Root.Send(user1, &p.Event{Id: ulid.Make().String(), Type: "CreateUserAccount", Data: "event3", OccurredAt: timestamppb.Now()})
+	system.Root.Send(user1, &p.Event{Id: ulid.Make().String(), Type: "CreateUserAccount", Data: "event4", OccurredAt: timestamppb.Now()})
 	time.Sleep(3 * time.Second)
 
 	//
